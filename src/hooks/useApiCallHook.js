@@ -25,7 +25,7 @@ export const useApiCallHook = () => {
   const refreshTokenCall = async () => {
     try {
       console.log('[API] Attempting token refresh due to 401...');
-      const response = await fetch('http://localhost:8080/auth/refreshToken', {
+      const response = await fetch('https://farao-backend-fa2bcbbfec38.herokuapp.com/auth/refreshToken', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

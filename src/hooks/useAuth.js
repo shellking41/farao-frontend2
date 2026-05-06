@@ -40,7 +40,7 @@ export const useAuth = () => {
     setIsRefreshing(true);
 
     try {
-      const response = await post('http://localhost:8080/auth/refreshToken');
+      const response = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/auth/refreshToken');
 
       if (response?.accessToken) {
         setToken(response.accessToken);
@@ -69,11 +69,11 @@ export const useAuth = () => {
     }
 
     try {
-      const userStatus = await post('http://localhost:8080/user/current-status', { token });
+      const userStatus = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/user/current-status', { token });
 
       if (userStatus?.authenticated) {
         const currentAndManagedRoom = await post(
-          'http://localhost:8080/room/current-and-managed-room',
+          'https://farao-backend-fa2bcbbfec38.herokuapp.com/room/current-and-managed-room',
           {
             currentRoomId: userStatus?.currentRoomId,
             managedRoomId: userStatus?.managedRoomId,
@@ -111,7 +111,7 @@ export const useAuth = () => {
     }
 
     try {
-      const gameSession = await get('http://localhost:8080/game/state', token);
+      const gameSession = await get('https://farao-backend-fa2bcbbfec38.herokuapp.com/game/state', token);
 
       if (gameSession) {
         const { validPlays, ...rest } = gameSession;
@@ -136,7 +136,7 @@ export const useAuth = () => {
     console.log('[AUTH] Logging in...');
 
     try {
-      const response = await post('http://localhost:8080/auth/login', {
+      const response = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/auth/login', {
         username,
         password,
       });
@@ -146,7 +146,7 @@ export const useAuth = () => {
 
         // Szobák lekérése
         const currentAndManagedRoom = await post(
-          'http://localhost:8080/room/current-and-managed-room',
+          'https://farao-backend-fa2bcbbfec38.herokuapp.com/room/current-and-managed-room',
           {
             currentRoomId: response.userCurrentStatus?.currentRoomId,
             managedRoomId: response.userCurrentStatus?.managedRoomId,
@@ -223,7 +223,7 @@ export const useAuth = () => {
       // Backend logout
       if (currentToken) {
         try {
-          await post('http://localhost:8080/auth/logout', {}, currentToken);
+          await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/auth/logout', {}, currentToken);
         } catch (error) {
           console.error('[LOGOUT] Backend logout failed:', error);
         }

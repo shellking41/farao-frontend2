@@ -37,7 +37,7 @@ function RoomPage() {
   const leaveRoom = async () => {
     try {
       console.log(roomId);
-      const userData = await post('http://localhost:8080/room/leave', { roomId }, token);
+      const userData = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/room/leave', { roomId }, token);
       setUserCurrentStatus(userData);
     } catch (e) {
       console.error(e);
@@ -64,7 +64,7 @@ function RoomPage() {
       }
 
       const response = await post(
-        'http://localhost:8080/bot/add',
+        'https://farao-backend-fa2bcbbfec38.herokuapp.com/bot/add',
         {
           name: `Computer-${nextNumber}`,
           difficulty: 'EASY',
@@ -83,7 +83,7 @@ function RoomPage() {
 
   const startGame = async () => {
     try {
-      const response = await post('http://localhost:8080/game/start', { roomId }, token);
+      const response = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/game/start', { roomId }, token);
     } catch (e) {
       console.error(e);
     }

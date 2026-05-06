@@ -150,7 +150,7 @@ function Game() {
 
   useEffect(() => {
     const getCurrentTurn = async () => {
-      const t = await get('http://localhost:8080/game/current-turn', token);
+      const t = await get('https://farao-backend-fa2bcbbfec38.herokuapp.com/game/current-turn', token);
       setTurn(t);
     };
     getCurrentTurn();
@@ -159,7 +159,7 @@ function Game() {
   useEffect(() => {
     if (isNewRound) {
       const getCurrentState = async () => {
-        const response = await get('http://localhost:8080/game/state', token);
+        const response = await get('https://farao-backend-fa2bcbbfec38.herokuapp.com/game/state', token);
         setTimeout(() => {
           setGameSession(response);
         }, 1000);
@@ -402,7 +402,7 @@ function Game() {
         </div>
         <div className={styles.leaveButtonContianer}>
           <button onClick={async () => {
-            const response = await post('http://localhost:8080/game/leave', { gameSessionId: gameSession.gameSessionId }, token);
+            const response = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/game/leave', { gameSessionId: gameSession.gameSessionId }, token);
             console.log(response);
             setLeave(true);
 

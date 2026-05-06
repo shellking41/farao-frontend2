@@ -29,7 +29,7 @@ function UserReactions({ userId, like: initialLike, dislike: initialDislike }) {
     setLoading(true);
     try {
       const response = await post(
-        'http://localhost:8080/user/react-to-user',
+        'https://farao-backend-fa2bcbbfec38.herokuapp.com/user/react-to-user',
         {
           userId: userId,
           reaction: reaction,
