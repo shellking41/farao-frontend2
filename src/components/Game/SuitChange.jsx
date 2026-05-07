@@ -3,10 +3,10 @@ import { GameSessionContext } from "../../Contexts/GameSessionContext.jsx";
 
 // Suit képek mapping
 const SUIT_IMAGES = {
-    ACORNS: '/ACORN.png',
-    BELLS: '/BELL.png',
-    HEARTS: '/HEARTS.png',
-    LEAVES: '/LEAVES.png'
+    ACORNS: '/acorn.png',
+    BELLS: '/bell.png',
+    HEARTS: '/hearts.png',
+    LEAVES: '/leaves.png'
 };
 
 function SuitChange() {

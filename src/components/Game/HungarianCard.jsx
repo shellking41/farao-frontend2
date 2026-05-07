@@ -173,7 +173,7 @@ export function getCardStyleForPosition(pos, cardIndex, cardsCount) {
 function getCardImagePath(suit, rank) {
   if (suit && rank) {
     const suitLower = suit.toLowerCase();
-    const rankUpper = rank.toUpperCase();
+    const rankUpper = rank.toLowerCase();
 
     return `/${suitLower}${rankUpper}.png`;
   }

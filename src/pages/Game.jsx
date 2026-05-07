@@ -649,7 +649,7 @@ function Game() {
               >
                 <img
                   className={`${styles.suitImage} ${styles.suitHearts}`}
-                  src={'/HEARTS.png'}
+                  src={'/hearts.png'}
                   alt="Hearts"
                 />
               </button>
@@ -662,7 +662,7 @@ function Game() {
               >
                 <img
                   className={`${styles.suitImage} ${styles.suitAcorns}`}
-                  src={'/ACORN.png'}
+                  src={'/acorn.png'}
                   alt="Acorns"
                 />
               </button>
@@ -675,7 +675,7 @@ function Game() {
               >
                 <img
                   className={`${styles.suitImage} ${styles.suitBells}`}
-                  src={'/BELL.png'}
+                  src={'/bell.png'}
                   alt="Bells"
                 />
               </button>
@@ -688,7 +688,7 @@ function Game() {
               >
                 <img
                   className={`${styles.suitImage} ${styles.suitLeaves}`}
-                  src={'/LEAVES.png'}
+                  src={'/leaves.png'}
                   alt="Leaves"
                 />
               </button>
