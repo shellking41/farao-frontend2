@@ -15,7 +15,7 @@ function Statistic() {
       let response = await get('https://farao-backend-fa2bcbbfec38.herokuapp.com/statistics/user/me', token);
 
       setUserStatistics(response);
-      response = await get('https://farao-backend-fa2bcbbfec38.herokuapp.com/user/global-best', token);
+      response = await get('https://farao-backend-fa2bcbbfec38.herokuapp.com/statistics/user/global-best', token);
       setGlobalBest(response);
 
     };
