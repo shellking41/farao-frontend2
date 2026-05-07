@@ -175,7 +175,7 @@ function getCardImagePath(suit, rank) {
     const suitLower = suit.toLowerCase();
     const rankUpper = rank.toUpperCase();
 
-    return `/src/assets/${suitLower}${rankUpper}.png`;
+    return `/${suitLower}${rankUpper}.png`;
   }
 }
 
