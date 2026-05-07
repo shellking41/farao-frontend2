@@ -52,6 +52,7 @@ import SuitChange from '../components/Game/SuitChange.jsx';
 import useBroadcastPlayAction
   from '../components/Game/Hooks/useBroadcastPlayAction.js';
 import { FaPlay, FaStepForward } from 'react-icons/fa';
+import {usePreloadCardImages} from "../components/Game/Hooks/usePreloadCardImages.js";
 
 function Game() {
   const {
@@ -59,6 +60,7 @@ function Game() {
     setAnimatingReshuffle, setDeckRotations, deckRotations,
     currentRoundKey,
   } = useContext(GameSessionContext);
+  usePreloadCardImages();
   const { gameSessionId } = useParams();
   const { sendMessage } = useWebsocket();
   const { userCurrentStatus, setUserCurrentStatus } = useContext(UserContext);
