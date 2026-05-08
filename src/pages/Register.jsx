@@ -22,7 +22,6 @@ function Register() {
   ];
 
   useEffect(() => {
-    console.log(errorLog);
 
   }, [errorLog]);
 
@@ -39,7 +38,6 @@ function Register() {
               username: data.Username,
               password: data.Password,
             });
-          console.log(response);
 
           if (response && response.success) {
             navigate('/');

@@ -10,7 +10,6 @@ function DeckCard({ index, rotation, shouldAnimate = false, isMobile = false, on
   // Külön useEffect az isMobile változás kezelésére
   useEffect(() => {
     if (lastIsMobileRef.current !== isMobile && hasAnimatedRef.current && cardRef.current) {
-      console.log('[DECK CARD] isMobile changed, updating position', { isMobile });
       const element = cardRef.current;
       const deckPos = {
         left: isMobile ? '45%' : '55%',
@@ -33,7 +32,6 @@ function DeckCard({ index, rotation, shouldAnimate = false, isMobile = false, on
     }
 
     if (shouldAnimate && cardRef.current && !hasAnimatedRef.current) {
-      console.log('[DECK CARD] Starting animation (layout effect) for last card');
       isAnimatingRef.current = true;
 
       const element = cardRef.current;
@@ -75,7 +73,6 @@ function DeckCard({ index, rotation, shouldAnimate = false, isMobile = false, on
       });
 
       animationRef.current.onfinish = () => {
-        console.log('[DECK CARD] Animation completed');
         hasAnimatedRef.current = true;
         isAnimatingRef.current = false;
         lastIsMobileRef.current = isMobile;

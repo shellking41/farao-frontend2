@@ -4,7 +4,6 @@ export const handleReshuffleAnimationComplete = (
     setGameSession,
     totalCards
 ) => {
-    console.log('[RESHUFFLE COMPLETE] Card finished:', index, 'Total cards:', totalCards);
 
     setAnimatingReshuffle(prev => {
         const currentAnim = prev.find(c => c.card.index === index);
@@ -29,11 +28,9 @@ export const handleReshuffleAnimationComplete = (
 
         // Számoljuk meg, hány animáció fejeződött be
         const completedCount = updatedAnimations.filter(a => a.completed).length;
-        console.log('[RESHUFFLE COMPLETE] Completed:', completedCount, 'of', totalCards);
 
         // Csak akkor töröljünk mindent, ha MINDEN kártya befejezte az animációt
         if (completedCount === totalCards) {
-            console.log("[RESHUFFLE COMPLETE] All reshuffle animations completed - clearing all");
 
 
                 setGameSession(prev => ({
@@ -48,7 +45,6 @@ export const handleReshuffleAnimationComplete = (
         }
 
         // Még nem fejeződött be minden animáció, megtartjuk az összeset
-        console.log('[RESHUFFLE COMPLETE] Still animating. Remaining:', totalCards - completedCount);
         return updatedAnimations;
     });
 };

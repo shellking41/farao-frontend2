@@ -23,7 +23,6 @@ function useBroadcastPlayAction() {
                 ...data,
                 timestamp: Date.now(),
             });
-            console.log('[BROADCAST] Play action sent:', data);
         }
     }, []);
 
@@ -33,7 +32,6 @@ function useBroadcastPlayAction() {
 
         const handler = (event) => {
             if (event.data.type === 'PLAY_CARDS') {
-                console.log('[BROADCAST] Play action received:', event.data);
                 callback(event.data);
             }
         };

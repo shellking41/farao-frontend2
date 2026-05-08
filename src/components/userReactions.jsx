@@ -42,7 +42,6 @@ function UserReactions({ userId, like: initialLike, dislike: initialDislike }) {
         setDislikeCount(response.dislikeCount);
         setCurrentReaction(response.currentReaction);
 
-        console.log(`Reaction ${response.action}: ${reaction} on user ${userId}`);
       }
     } catch (error) {
       console.error('Failed to react:', error);

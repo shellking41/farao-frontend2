@@ -49,7 +49,6 @@ export const handleAnimationComplete = (
           }, 0);
 
           setTimeout(() => {
-            console.log('[OWN CARD COMPLETE] Clearing animating cards after delay');
             setAnimatingCards(prev =>
               prev.filter(c => !completedCardIds.has(c.card.cardId)),
             );
@@ -72,14 +71,9 @@ export const handleAnimationComplete = (
     setAnimationOwnCards(prev => {
       const filtered = prev.filter(c => (c.card.cardId || c.card.refKey) !== cardId);
 
-      console.log('[OWN CARD COMPLETE]', {
-        completedCardId: cardId,
-        remaining: filtered.length,
-        total: prev.length,
-      });
+
 
       if (filtered.length === 0) {
-        console.log('[OWN CARD COMPLETE] All animations finished, updating game state');
 
         // *** ELŐSZÖR frissítjük a gameSession-t (playedCards) ***
         setGameSession(prev => {
@@ -103,7 +97,6 @@ export const handleAnimationComplete = (
         });
 
         setTimeout(() => {
-          console.log('[OWN CARD COMPLETE] Clearing animating cards after delay');
           setAnimationOwnCards([]);
         }, 200);
 

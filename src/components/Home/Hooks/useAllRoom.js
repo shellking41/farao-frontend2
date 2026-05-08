@@ -22,7 +22,6 @@ function useAllRoom() {
                 `https://farao-backend-fa2bcbbfec38.herokuapp.com/room/all?pageNum=${pageNum}&pageSize=${pageSize}`,
                 token
             );
-            console.log("rooms", response);
 
             if (response) {
                 setRooms(response.content);
@@ -32,7 +31,6 @@ function useAllRoom() {
                 throw new Error(response?.message || "failed to fetch the rooms");
             }
         } catch (e) {
-            console.log(e);
         } finally {
             setLoading(false);
         }

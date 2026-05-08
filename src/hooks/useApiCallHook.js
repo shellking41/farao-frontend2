@@ -24,7 +24,6 @@ export const useApiCallHook = () => {
 
   const refreshTokenCall = async () => {
     try {
-      console.log('[API] Attempting token refresh due to 401...');
       const response = await fetch('https://farao-backend-fa2bcbbfec38.herokuapp.com/auth/refreshToken', {
         method: 'POST',
         headers: {
@@ -40,7 +39,6 @@ export const useApiCallHook = () => {
       const data = await response.json();
       if (data?.accessToken) {
         setToken(data.accessToken);
-        console.log('[API] Token refreshed successfully');
         return data.accessToken;
       }
       throw new Error('No access token in refresh response');
@@ -63,7 +61,6 @@ export const useApiCallHook = () => {
 
       // 401 Unauthorized - Token refresh
       if (response.status === 401 && retryCount === 0) {
-        console.log('[API] 401 detected, refreshing token...');
         const newToken = await refreshTokenCall();
 
         if (newToken) {
@@ -102,7 +99,6 @@ export const useApiCallHook = () => {
   };
 
   const post = async (url, data, bearer, retryCount = 0) => {
-    console.log(data);
 
     try {
       const response = await fetch(url, {
@@ -117,7 +113,6 @@ export const useApiCallHook = () => {
 
       // 401 Unauthorized - Token refresh
       if (response.status === 401 && retryCount === 0) {
-        console.log('[API] 401 detected, refreshing token...');
         const newToken = await refreshTokenCall();
 
         if (newToken) {
@@ -137,7 +132,6 @@ export const useApiCallHook = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.log(errorData);
 
         setErrorLog(prev => ({
           ...prev,
@@ -170,7 +164,6 @@ export const useApiCallHook = () => {
 
       // 401 Unauthorized - Token refresh
       if (response.status === 401 && retryCount === 0) {
-        console.log('[API] 401 detected, refreshing token...');
         const newToken = await refreshTokenCall();
 
         if (newToken) {

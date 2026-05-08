@@ -31,12 +31,10 @@ function RoomPage() {
   const { subscribe } = useWebsocket();
 
   useEffect(() => {
-    console.log(joinRequests);
   }, [joinRequests]);
 
   const leaveRoom = async () => {
     try {
-      console.log(roomId);
       const userData = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/room/leave', { roomId }, token);
       setUserCurrentStatus(userData);
     } catch (e) {
@@ -89,7 +87,6 @@ function RoomPage() {
     }
   };
   useEffect(() => {
-    console.log(userCurrentStatus);
 
   }, [userCurrentStatus]);
   const totalPlayers = (userCurrentStatus.currentRoom?.participants?.length || 0) +

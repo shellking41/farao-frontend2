@@ -12,8 +12,7 @@ export const useMediaQuery = (query) => {
 
   useEffect(() => {
     const media = window.matchMedia(query);
-    console.log('window.innerWidth', window.innerWidth);
-    console.log('window.innerHeight', window.innerHeight);
+
 
     // Frissítjük, ha szükséges
     if (media.matches !== matches) {

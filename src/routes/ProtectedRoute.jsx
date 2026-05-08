@@ -47,7 +47,6 @@ function ProtectedRoute({ children }) {
             setLoginError('');
 
             const result = await login(data.Username, data.Password);
-            console.log(result);
 
             if (!result.success) {
               setLoginError(result.message || 'Login failed');

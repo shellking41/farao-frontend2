@@ -68,7 +68,6 @@ const getPageSubscriptions = (getCtx) => {
         destination: '/topic/rooms',
         callback: (message) => {
           const { setRooms } = getCtx();
-          console.log(message);
 
           setRooms((prev) => ([...prev, message]));
         },
@@ -92,7 +91,6 @@ const getPageSubscriptions = (getCtx) => {
         callback: (message) => {
           const { showNotification, setUserCurrentStatus } = getCtx();
 
-          console.log('[JOIN-RESPONSE]', message);
 
           if (message.confirmed === true) {
             showNotification(message.message, 'success');
@@ -125,7 +123,6 @@ const getPageSubscriptions = (getCtx) => {
         callback: (message) => {
           const { showNotification } = getCtx();
 
-          console.log('[CONFIRM-ERROR]', message);
 
           // Gamemaster értesítése, hogy miért nem sikerült a konfirmálás
           if (message.success === false) {
@@ -139,7 +136,6 @@ const getPageSubscriptions = (getCtx) => {
       {
         destination: '/user/queue/errors',
         callback: (message) => {
-          console.log('[ERROR]', message);
         },
       },
     ],
@@ -151,7 +147,6 @@ const getPageSubscriptions = (getCtx) => {
         callback: (message) => {
           const { setJoinRequests, showNotification } = getCtx();
 
-          console.log('[JOIN-REQUEST] New request received:', message);
 
           // Hozzáadjuk a join request-et a listához
           setJoinRequests((prev) => [...prev, message]);
@@ -170,7 +165,6 @@ const getPageSubscriptions = (getCtx) => {
         callback: (message) => {
           const { showNotification, setJoinRequests } = getCtx();
 
-          console.log('[CONFIRM-ERROR] Room page:', message);
 
           if (message.success === false) {
             showNotification(
@@ -194,7 +188,6 @@ const getPageSubscriptions = (getCtx) => {
         callback: (message) => {
           const { setUserCurrentStatus } = getCtx();
 
-          console.log('[USER-STATUS] Status update:', message);
 
           setUserCurrentStatus(message);
         },
@@ -244,7 +237,6 @@ const getPageSubscriptions = (getCtx) => {
         callback: (message) => {
           const { showNotification, setUserCurrentStatus } = getCtx();
 
-          console.log('[JOIN-RESPONSE] Room page:', message);
 
           // SIKERES KONFIRMÁLÁS
           if (message.confirmed === true) {
@@ -274,7 +266,6 @@ const getPageSubscriptions = (getCtx) => {
       {
         destination: `/user/queue/game/start`,
         callback: (message) => {
-          console.log('startmessage', message);
 
           const {
             userCurrentStatus,
@@ -309,7 +300,6 @@ const getPageSubscriptions = (getCtx) => {
       {
         destination: '/user/queue/errors',
         callback: (message) => {
-          console.log('[ERROR]', message);
         },
       },
     ],
@@ -334,8 +324,7 @@ const getPageSubscriptions = (getCtx) => {
             isTablet,
           } = ctx;
 
-          console.log('[DRAW] Message received:', message);
-          console.log('[DRAW] Reshuffled flag:', message.reshuffled);
+
 
           const deckElement = document.querySelector('.deck');
           const deckPosition = deckElement
@@ -349,11 +338,7 @@ const getPageSubscriptions = (getCtx) => {
           const currentDeckSize = gameSession?.deckSize || 0;
           const willReshuffle = message.reshuffled === true;
 
-          console.log('[DRAW] Deck status:', {
-            currentDeckSize,
-            newDeckSize: message.deckSize,
-            willReshuffle,
-          });
+
 
           // Ha reshuffle lesz, először csökkentjük a deckSize-t 0-ra
           if (willReshuffle && currentDeckSize > 0) {
@@ -368,11 +353,7 @@ const getPageSubscriptions = (getCtx) => {
           if (message.playerId === playerSelf?.playerId && message.newCard != null) {
             const currentHandCount = (gameSession?.playerHand?.ownCards ?? []).length;
 
-            console.log('[DRAW ANIMATION] Starting self animation', {
-              deckPosition,
-              currentHandCount,
-              newCards: message.newCard.length,
-            });
+
 
             // calculateDrawAnimation visszaadja az animációkat minden kártyához
             const drawAnimations = calculateDrawAnimation(
@@ -387,20 +368,10 @@ const getPageSubscriptions = (getCtx) => {
 
             //ideiglenesen elokjuk a kartyakat
             const cardElements = document.querySelectorAll('.own-card-container');
-            console.log(cardElements, 'cardElements-own');
 
             cardElements.forEach((el, index) => {
-              console.log('cardElements-own', index, cardElements.length + message.newCard.length);
-              console.log('cardElements-own',
-                'card',
-                index,
-                'left:',
-                el.style.left,
-                'top:',
-                el.style.top,
-              );
+
               let style = getCardStyleForPosition('bottom', index, cardElements.length + message.newCard.length);
-              console.log(style, 'cardElements-own');
 
               el.style.left = style.left;
             });
@@ -437,7 +408,6 @@ const getPageSubscriptions = (getCtx) => {
 
               setSelectedCards([]);
               setAnimatingDrawCards([]);
-              console.log('[DRAW ANIMATION] Self animation complete');
 
               if (willReshuffle) {
                 const cardsToReshuffle = message.deckSize;
@@ -461,7 +431,6 @@ const getPageSubscriptions = (getCtx) => {
           // OPPONENT DRAW
           else {
             // ... opponent draw logic
-            console.log('[DRAW] Other player drew, starting opponent animation', message);
 
             const drawingPlayer = gameSession?.players?.find(p => p.playerId === message.playerId);
             if (!drawingPlayer) {
@@ -480,11 +449,7 @@ const getPageSubscriptions = (getCtx) => {
             const currentCardCount = message.otherPlayersCardCount?.[String(message.playerId)] || 0;
             const cardsDrawn = message.drawCardsLength || (message.newCard ? message.newCard.length : 0);
 
-            console.log('[DRAW ANIMATION] Starting opponent animation', {
-              opponentPosition,
-              currentCardCount,
-              cardsDrawn,
-            });
+
 
             const dummyCards = Array.from({ length: cardsDrawn }).map((_, i) => ({
               refKey: `opponent-draw-${message.playerId}-${Date.now()}-${i}`,
@@ -507,7 +472,6 @@ const getPageSubscriptions = (getCtx) => {
               const posClass = [...el.classList].find(c => c.startsWith('pos-'));
               const pos = posClass?.replace('pos-', '');
               let style;
-              console.log('pos', pos);
 
               switch (pos) {
                 case 'top':
@@ -533,7 +497,6 @@ const getPageSubscriptions = (getCtx) => {
               return Math.max(max, finish);
             }, 0);
 
-            console.log('[DRAW ANIMATION] Opponent animation time:', totalDelay);
 
             setTimeout(() => {
               setGameSession((prev) => ({
@@ -549,7 +512,6 @@ const getPageSubscriptions = (getCtx) => {
                 },
               }));
               setAnimatingDrawCards([]);
-              console.log('[DRAW ANIMATION] Opponent animation complete');
 
               //  OPPONENTNÉL IS
               if (willReshuffle) {
@@ -582,15 +544,12 @@ const getPageSubscriptions = (getCtx) => {
           //ace handling
 
           if (message.newPlayedCards[0].rank === 'ACE') {
-            console.log('visual only', message.newPlayedCards[0].rank);
             const skippedVisual = computeSkippedPlayersVisual(message, gameSession);
 
             // kiírás / debug
-            console.log('visual only', skippedVisual);
             setSkippedPlayers(skippedVisual);
 
           }
-          console.log('[WS] played-cards incoming', message);
 
           const incoming = message?.newPlayedCards ?? [];
           if (!incoming || incoming.length === 0) {
@@ -610,7 +569,6 @@ const getPageSubscriptions = (getCtx) => {
             );
 
             if (alreadyExists) {
-              console.log('[WS] Queue item already exists, skipping duplicate');
               return prev;
             }
 
@@ -621,7 +579,6 @@ const getPageSubscriptions = (getCtx) => {
               receivedAt: Date.now(),
             };
 
-            console.log('[WS] Adding cards to queue:', entry);
 
             return {
               ...prev,
@@ -635,7 +592,6 @@ const getPageSubscriptions = (getCtx) => {
         destination: '/user/queue/game/play-cards',
         callback: (message) => {
           const { setGameSession } = getCtx();
-          console.log('[WS] play-cards response from backend:', message);
 
           const newRound = message.gameData?.currentRound;
           setGameSession((prev) => ({
@@ -661,7 +617,6 @@ const getPageSubscriptions = (getCtx) => {
         destination: '/user/queue/game/turn',
         callback: (message) => {
           const { setTurn, setValidPlays } = getCtx();
-          console.log(message, '!!!!!!!!!!!!!!!!!!!');
           setTurn({
             currentSeat: message.currentSeat,
             yourTurn: message.yourTurn,
@@ -674,7 +629,6 @@ const getPageSubscriptions = (getCtx) => {
         destination: '/user/queue/game/reorder-cards',
         callback: (message) => {
           const { setGameSession } = getCtx();
-          console.log('Cards reordered:', message);
 
           setGameSession((prev) => ({
             ...prev,
@@ -693,9 +647,7 @@ const getPageSubscriptions = (getCtx) => {
             setGameSession, setValidPlays, setPlayerSelf, setTurn, post, token, setUserCurrentStatus, setSelectedCards, setAnimatingCards, setAnimatingOwnCards,
             setAnimatingDrawCards, setAnimatingReshuffle, setIsNewRound, setDeckRotations, animatingReshuffle,
           } = getCtx();
-          console.log('gameEND', message, animatingReshuffle, setAnimatingReshuffle);
           if (message.finalPositions) {
-            console.log('finalpositions', message.finalPositions);
 
             localStorage.setItem(
               'finalPositions',
@@ -752,7 +704,6 @@ const getPageSubscriptions = (getCtx) => {
         destination: '/user/queue/game/skip',
         callback: (message) => {
           const { setSkipTurn } = getCtx();
-          console.log(message);
           if (message.skipTurn && message.skippedPlayerId) {
             setSkipTurn({
               playerId: message.skippedPlayerId,
@@ -765,20 +716,17 @@ const getPageSubscriptions = (getCtx) => {
       {
         destination: '/user/queue/errors',
         callback: (message) => {
-          console.log(message);
         },
       },
       {
         destination: '/user/queue/game/player-left',
         callback: (message) => {
-          console.log(message);
         },
       },
       {
         destination: '/user/queue/game/draw-stack',
         callback: (message) => {
           const { setGameSession } = getCtx();
-          console.log(message);
           setGameSession((prev) => ({
             ...prev,
             gameData: {
@@ -955,7 +903,6 @@ function UseSubscribeToTopicByPage({ page, currentRoomId }) {
       try {
         const unsubscribe = subscribe(sub.destination, sub.callback);
         newUnsubscribeFunctions.push(unsubscribe);
-        console.log('[GLOBAL-SUBSCRIPTION] Subscribed to:', sub.destination);
       } catch (err) {
         console.error('[GLOBAL-SUBSCRIPTION] Failed to subscribe to', sub.destination, err);
       }
@@ -966,7 +913,6 @@ function UseSubscribeToTopicByPage({ page, currentRoomId }) {
     subscriptionsForPage.forEach((sub) => {
       try {
         if (sub.condition && typeof sub.condition === 'function' && !sub.condition()) {
-          console.log(`[PAGE-SUBSCRIPTION] Condition not met for topic: ${sub.destination}`);
           return;
         }
         const unsubscribe = subscribe(sub.destination, sub.callback);
@@ -977,7 +923,6 @@ function UseSubscribeToTopicByPage({ page, currentRoomId }) {
     });
 
     return () => {
-      console.log(`[SUBSCRIPTION] Cleaning up global and ${page} subscriptions`);
       newUnsubscribeFunctions.forEach((unsubscribe) => {
         try {
           unsubscribe();

@@ -28,14 +28,12 @@ function useWebsocket() {
               Authorization: 'Bearer ' + token,
             },
           });
-          console.log(`[STOMP] Üzenet elküldve: ${destination}`, message);
           return true;
         } catch (error) {
           messageQueueRef.current.push(messageData);
           return false;
         }
       } else {
-        console.log(`[STOMP] Nincs kapcsolat, üzenet queue-ba téve: ${destination}`);
         messageQueueRef.current.push(messageData);
         return false;
       }
@@ -57,7 +55,6 @@ function useWebsocket() {
                 Authorization: 'Bearer ' + token,
               },
             });
-            console.log(`[STOMP] Queue-ból elküldve: ${destination}`, message);
           } catch (error) {
             console.error('[STOMP] Queue üzenet küldési hiba:', error);
             messageQueueRef.current.push({ destination, message, id, timestamp: Date.now() });
@@ -106,7 +103,6 @@ function useWebsocket() {
             stored.subscription = subscription;
           }
 
-          console.log(`[STOMP] Feliratkozva: ${destination} (${subscriptionId})`);
           return subscription;
         } catch (error) {
           console.error('[STOMP] Feliratkozási hiba:', error);
@@ -123,7 +119,6 @@ function useWebsocket() {
       if (stored?.subscription) {
         try {
           stored.subscription.unsubscribe();
-          console.log(`[STOMP] Leiratkozva: ${destination} (${subscriptionId})`);
         } catch (error) {
           console.error('[STOMP] Leiratkozási hiba:', error);
         }

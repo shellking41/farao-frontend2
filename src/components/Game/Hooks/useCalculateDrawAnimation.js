@@ -29,7 +29,6 @@ function useCalculateDrawAnimation(spacing = 40) {
 
   const calculateDrawAnimation = useCallback(
     (isTablet, drawnCards, deckPosition, playerHandCount, playerPosition = 'bottom', isSelfPlayer = true, isMobile = false, cardRefs = null) => {
-      console.log('isMobile', isMobile);
 
       // Deck starting position
       const deckStart = {
@@ -65,7 +64,6 @@ function useCalculateDrawAnimation(spacing = 40) {
 
         // Ha mobil és saját játékos (bottom), akkor a toggle button pozíciójához igazítunk
         const shouldScale = (isMobile) && playerPosition !== 'bottom';
-        console.log(shouldScale, 'shouldScale', isMobile);
 
         const isMobileSelfPlayer = (isMobile) && playerPosition === 'bottom' && isSelfPlayer;
 

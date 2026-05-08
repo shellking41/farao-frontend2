@@ -24,7 +24,6 @@ export const AuthSyncProvider = ({ children }) => {
 
       switch (type) {
         case 'LOGIN':
-          console.log('[AuthSync] Login detected with new token - reloading...');
 
           if (accessToken) {
             setToken(accessToken);
@@ -34,7 +33,6 @@ export const AuthSyncProvider = ({ children }) => {
           break;
 
         case 'LOGOUT':
-          console.log('[AuthSync] Logout detected');
 
           setToken(null);
           setUserCurrentStatus({
@@ -51,7 +49,6 @@ export const AuthSyncProvider = ({ children }) => {
           break;
 
         case 'TOKEN_REFRESH':
-          console.log('[AuthSync] Token refresh detected from another tab');
 
           if (accessToken) {
             setToken(accessToken);
@@ -70,7 +67,6 @@ export const AuthSyncProvider = ({ children }) => {
   }, [setToken, setUserCurrentStatus, disconnectFromSocket]);
 
   const broadcastLogin = (accessToken) => {
-    console.log('[AuthSync] Broadcasting login with access token');
     channelRef.current?.postMessage({
       type: 'LOGIN',
       senderId: tabIdRef.current,
@@ -79,7 +75,6 @@ export const AuthSyncProvider = ({ children }) => {
   };
 
   const broadcastLogout = () => {
-    console.log('[AuthSync] Broadcasting logout');
     channelRef.current?.postMessage({
       type: 'LOGOUT',
       senderId: tabIdRef.current,
@@ -87,7 +82,6 @@ export const AuthSyncProvider = ({ children }) => {
   };
 
   const broadcastTokenRefresh = (accessToken) => {
-    console.log('[AuthSync] Broadcasting token refresh with new token');
     channelRef.current?.postMessage({
       type: 'TOKEN_REFRESH',
       senderId: tabIdRef.current,

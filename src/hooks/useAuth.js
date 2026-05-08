@@ -36,7 +36,6 @@ export const useAuth = () => {
     if (isRefreshing) {
       return null;
     }
-    console.log('[AUTH] Refreshing token...');
     setIsRefreshing(true);
 
     try {
@@ -62,7 +61,6 @@ export const useAuth = () => {
 
   // User status lekérdezése
   const getCurrentStatus = useCallback(async (token = token) => {
-    console.log('[AUTH] Getting current status...');
 
     if (!token) {
       return null;
@@ -124,7 +122,6 @@ export const useAuth = () => {
         setPlayerSelf(player);
       }
     } catch (error) {
-      console.log('[AUTH] No active game session');
       setGameSession({});
       setValidPlays([]);
       setPlayerSelf({});
@@ -133,7 +130,6 @@ export const useAuth = () => {
 
   // Bejelentkezés + Broadcast
   const login = useCallback(async (username, password) => {
-    console.log('[AUTH] Logging in...');
 
     try {
       const response = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/auth/login', {
@@ -174,12 +170,10 @@ export const useAuth = () => {
 
         return { success: true };
       }
-      console.log(response);
 
       throw new Error(response?.message || 'Login failed');
     } catch (error) {
       console.error('[AUTH] Login failed:', error);
-      console.log(error);
 
       return { success: false, message: error.message };
     }
@@ -187,7 +181,6 @@ export const useAuth = () => {
 
   // Kijelentkezés + Broadcast
   const logout = useCallback(async () => {
-    console.log('[LOGOUT] Starting logout process...');
 
     try {
       const currentToken = token;
@@ -212,7 +205,6 @@ export const useAuth = () => {
 
       // WebSocket disconnect
       if (disconnectFromSocket) {
-        console.log('[LOGOUT] Disconnecting WebSocket...');
         try {
           disconnectFromSocket();
         } catch (error) {
@@ -229,7 +221,6 @@ export const useAuth = () => {
         }
       }
 
-      console.log('[LOGOUT] Logout complete');
     } catch (error) {
       console.error('[LOGOUT] Logout error:', error);
     }
@@ -255,7 +246,6 @@ export const useAuth = () => {
     }
 
     if (isTokenExpiringSoon(currentToken)) {
-      console.log('[AUTH] Token expiring soon, refreshing...');
       const newToken = await refreshToken();
       if (!newToken) {
         return false;
@@ -277,13 +267,11 @@ export const useAuth = () => {
       setIsLoading(true);
 
       if (!token) {
-        console.log('[AUTH] No access token found, attempting refresh...');
         const newToken = await refreshToken();
 
         if (newToken) {
           await getCurrentStatus(newToken);
         } else {
-          console.log('[AUTH] No valid refresh token, user needs to login');
           setUserCurrentStatus(prev => ({ ...prev, authenticated: false }));
         }
       } else {

@@ -18,16 +18,13 @@ const AnimatingCard = function AnimatingCard({
   const completedRef = useRef(false);
 
   useEffect(() => {
-    console.log('[animation calculation started]');
 
     if (animationStartedRef.current || completedRef.current) {
       return;
     }
-    console.log('[animation calculation started 1]');
     if (!cardRef.current || waypoints.length === 0) {
       return;
     }
-    console.log('[animation calculation started 2]');
 
     const element = cardRef.current;
     animationStartedRef.current = true;
@@ -63,15 +60,9 @@ const AnimatingCard = function AnimatingCard({
 
     const totalDuration = duration || 0;
 
-    console.log('[ANIMATION START]', {
-      cardId: card.cardId || card.refKey,
-      delay,
-      duration: totalDuration,
-      keyframes,
-    });
+
 
     timeoutIdRef.current = setTimeout(() => {
-      console.log('[ANIMATION STARTING NOW]', card.cardId || card.refKey);
 
       animationRef.current = element.animate(keyframes, {
         duration: totalDuration,
@@ -83,14 +74,9 @@ const AnimatingCard = function AnimatingCard({
         if (!completedRef.current) {
           completedRef.current = true;
 
-          console.log('[ANIMATION COMPLETE]', {
-            cardId: card.cardId || card.refKey,
-            completed: true,
-            timestamp: Date.now(),
-          });
+
 
           setTimeout(() => {
-            console.log('[CALLING onComplete]', card);
             onComplete?.(card.cardId || card.refKey);
           }, 100);
         }

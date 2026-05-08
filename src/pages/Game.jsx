@@ -137,7 +137,6 @@ function Game() {
 
     // Csak akkor jelzünk növekedést, ha nem kezdeti betöltés és tényleg nőtt
     if (currentLossCount > playerLosses) {
-      console.log(`[LOSS INCREASE] Player ${playerSelf.playerId} losses increased from ${playerLosses} to ${currentLossCount}`);
       setLossIncreased(true);
 
     }
@@ -255,7 +254,6 @@ function Game() {
       return;
     }
 
-    console.log('[PLAY CARDS] Starting animation for cards:', selectedCards.map(c => c.cardId));
 
     // elősszor kuldje el a broadcastot
     broadcastPlayAction({
@@ -276,7 +274,6 @@ function Game() {
       cardRefs,
     );
 
-    console.log('[PLAY CARDS] Generated animations:', animations.length);
 
     selectedCards.forEach(card => {
       const cardElement = cardRefs[card.cardId];
@@ -348,7 +345,6 @@ function Game() {
   }, [leave]);
 
   useEffect(() => {
-    console.log(animatingReshuffle, 'animatingReshuffle');
 
   }, [animatingReshuffle]);
   const initialCards = useMemo(() => gameSession?.playerHand?.ownCards || [], [gameSession?.playerHand?.ownCards]);
@@ -358,9 +354,7 @@ function Game() {
   const memoizedAnimatingReshuffle = useMemo(() => animatingReshuffle, [animatingReshuffle]);
 
   useEffect(() => {
-    console.log(!turn?.yourTurn || queueRef.current.length > 0 || animatingDrawCards.length > 0, '!!!!!!!!!!!!!!!!!!!');
-    console.log(queueRef.current.length > 0, '!!!!!!!!!!!!!!!!!!!');
-    console.log(queueRef.current, '!!!!!!!!!!!!!!!!!!!');
+
 
   }, [turn, animatingDrawCards, queueRef]);
 
@@ -383,7 +377,6 @@ function Game() {
   const handleLastDeckCardAnimationComplete = useCallback(() => {
     setLastDeckCardAnimated(true);
   }, []);
-  console.log(queueRef.current, 'queueref');
   return (
 
     <div className={styles.game}>
@@ -405,7 +398,6 @@ function Game() {
         <div className={styles.leaveButtonContianer}>
           <button onClick={async () => {
             const response = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/game/leave', { gameSessionId: gameSession.gameSessionId }, token);
-            console.log(response);
             setLeave(true);
 
           }}>Leave
@@ -596,7 +588,6 @@ function Game() {
                 // Ha van normal deck
                 if (deckSize > 0) {
 
-                  console.log(deckRotations);
                   return Array.from({ length: deckSize }).map((_, index) => (
 
                     <div key={`deck-${currentRound}-${index}`}>

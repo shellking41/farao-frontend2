@@ -1,6 +1,5 @@
 export function computeSkippedPlayersVisual(message, gameSession) {
   // Biztonsági alapok
-  console.log('visual only', message);
   const players = gameSession.players ?? [];
   const finishedPlayers = gameSession.gameData.finishedPlayers ?? [];
   const lostPlayers = gameSession.gameData.lostPlayers ?? [];
@@ -13,7 +12,6 @@ export function computeSkippedPlayersVisual(message, gameSession) {
       !finishedPlayers.includes(p.playerId) &&
       !lostPlayers.includes(p.playerId),
   );
-  console.log('visual only', activePlayers);
 
   const aceCount = newPlayedCards.filter(card => {
     // card lehet, hogy csak egy string vagy objektum - ha objektum, nézzük a rank mezőt
@@ -26,11 +24,9 @@ export function computeSkippedPlayersVisual(message, gameSession) {
 
   // Edge-case kezelések
   if (aceCount === 0) {
-    console.log('No ACE played → no skips.');
     return [];
   }
   if (activePlayers.length === 0) {
-    console.log('Nincsenek aktív játékosok (mindenki finished vagy lost).');
     return [];
   }
 

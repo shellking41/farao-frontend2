@@ -70,7 +70,6 @@ function MainLayout() {
   }, [gameSession.gameSessionId]);
 
   useEffect(() => {
-    console.log(userCurrentStatus);
   }, [userCurrentStatus]);
 
   return (

@@ -14,7 +14,6 @@ function NewRoundNotification({ isVisible, onAnimationComplete,lossIncreased, se
         }
     }, [isVisible]);
     useEffect(() => {
-        console.log("lossIncreased",lossIncreased)
 
     }, [lossIncreased]);
 

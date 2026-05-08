@@ -71,8 +71,7 @@ function useCalculatePlayAnimation(spacing = 40) {
 
       const playerPosition = getPlayerPositionBySeat(lastPlayer.seat, selfSeat, playersCount);
       const shouldScale = (isMobile) && playerPosition !== 'bottom';
-      console.log('shouldScale', shouldScale);
-      console.log('cardRefs available:', !!cardRefs);
+
 
       const playCount = cards.length;
       const handCount = Math.max(1, Number(playerHandCount) || playCount);
@@ -91,7 +90,6 @@ function useCalculatePlayAnimation(spacing = 40) {
           if (cardHandContainer) {
             const containerRect = cardHandContainer.getBoundingClientRect();
             const playgroundRect = cardHandContainer.closest('[style*="position: relative"]')?.getBoundingClientRect();
-            console.log(`[MOBILE ANIMATION] Card ${card.cardId} real position:`, (containerRect.left) + cardIndex * 64, (containerRect.left), cardIndex);
 
             return {
               left: `${(containerRect.left) + cardIndex * 64}px`, // 10px padding + card width + gap

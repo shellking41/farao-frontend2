@@ -84,7 +84,6 @@ export default function FormModal({
     });
   }, [errorLog, inputs]);
   useEffect(() => {
-    console.log(errorLog);
 
     setErrorLog({ error: false, message: '' });
 

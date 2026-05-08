@@ -17,11 +17,7 @@ function useCalculateReshuffleAnimation(spacing = 40) {
 
     const calculateReshuffleAnimation = useCallback(
         (playedCardPosition, deckPosition, deckCardNumber) => {
-            console.log("[RESHUFFLE CALCULATION]", {
-                playedCardPosition,
-                deckPosition,
-                deckCardNumber
-            });
+
 
             const playedCardStart = {
                 left: normalizeCoord(playedCardPosition.left),
@@ -33,10 +29,7 @@ function useCalculateReshuffleAnimation(spacing = 40) {
                 top: normalizeCoord(deckPosition.top),
             };
 
-            console.log("[RESHUFFLE] Normalized positions:", {
-                playedCardStart,
-                deckPos
-            });
+
 
             // Egyedi timestamp minden reshuffle batch-hez
             const batchId = Date.now();
@@ -78,7 +71,6 @@ function useCalculateReshuffleAnimation(spacing = 40) {
                 };
             });
 
-            console.log("[RESHUFFLE] Generated animations:", animations.length);
             return animations;
         },
         []

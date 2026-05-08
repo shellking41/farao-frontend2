@@ -12,7 +12,6 @@ export default function useCheckIsNewRound() {
             gameSession.newRound !== 1 &&
             gameSession.gameData?.currentRound !== gameSession.newRound
         ) {
-            console.log("CHANGED", gameSession.newRound, gameSession.gameData?.currentRound)
 
             setGameSession(prev => ({
                 ...prev,

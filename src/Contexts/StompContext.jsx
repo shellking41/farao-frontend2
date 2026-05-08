@@ -28,10 +28,8 @@ export const StompContextProvider = ({ children }) => {
   const lastTokenRef = useRef(null);
 
   const connectToSocket = () => {
-    console.log('[STOMP] Connecting with token:', token?.substring(0, 20) + '...');
 
     if (clientRef.current) {
-      console.log('[STOMP] Cleaning up previous connection');
       setReconnecting(true);
       clientRef.current.deactivate();
       clientRef.current = null;
@@ -48,7 +46,6 @@ export const StompContextProvider = ({ children }) => {
       heartbeatIncoming: 10000,
       heartbeatOutgoing: 10000,
       onConnect: () => {
-        console.log('[STOMP] Connected successfully');
         setConnected(true);
         setHasError(false);
         setReconnecting(false);
@@ -58,7 +55,6 @@ export const StompContextProvider = ({ children }) => {
       },
 
       onDisconnect: () => {
-        console.log('[STOMP] Disconnected');
         setConnected(false);
         setHasError(true);
       },
@@ -70,7 +66,6 @@ export const StompContextProvider = ({ children }) => {
       },
 
       onWebSocketClose: (event) => {
-        console.log('[STOMP] WebSocket closed:', event.code, event.reason);
         setConnected(false);
         setHasError(true);
       },
@@ -82,7 +77,6 @@ export const StompContextProvider = ({ children }) => {
       },
 
       debug: (str) => {
-        console.log('[STOMP Debug]:', str);
       },
     });
 
@@ -91,7 +85,6 @@ export const StompContextProvider = ({ children }) => {
   };
 
   const disconnectFromSocket = () => {
-    console.log('[STOMP] Manual disconnect');
     if (clientRef.current) {
       try {
         clientRef.current.deactivate();
@@ -107,25 +100,19 @@ export const StompContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log('[STOMP Effect] Auth:', userCurrentStatus.authenticated,
-      'Token:', !!token,
-      'Connected:', connected,
-      'Token changed:', lastTokenRef.current !== token);
+
 
     if (userCurrentStatus.authenticated && token && !connected) {
       const isNewToken = lastTokenRef.current !== token;
 
       if (isNewToken || !clientRef.current) {
-        console.log('[STOMP] Connecting - New token or no client');
         connectToSocket();
       } else {
-        console.log('[STOMP] Skipping reconnect - Same token, client exists');
       }
     }
 
     // Disconnect ha nincs token
     if (!token && (connected || clientRef.current)) {
-      console.log('[STOMP] No token, disconnecting');
       disconnectFromSocket();
     }
   }, [userCurrentStatus.authenticated, token, connected]);
@@ -133,7 +120,6 @@ export const StompContextProvider = ({ children }) => {
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      console.log('[STOMP] Component unmounting, cleaning up');
       disconnectFromSocket();
     };
   }, []);

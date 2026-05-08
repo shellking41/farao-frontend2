@@ -112,7 +112,6 @@ export function getCardStyleForPosition(pos, cardIndex, cardsCount) {
       const visualAngle = radians * depthBoost;
       const yOffset = Math.cos(visualAngle) * arcDepth;
 
-      console.log(yOffset, 'yOffset');
 
       return {
         left: `calc(47% + ${xOffset}px)`,
