@@ -19,7 +19,7 @@ function useAllRoom() {
                 return;
             }
             const response = await get(
-                `https://farao-backend-fa2bcbbfec38.herokuapp.com/room/all?pageNum=${pageNum}&pageSize=${pageSize}`,
+                `https://api.szabolcsbabics.com/room/all?pageNum=${pageNum}&pageSize=${pageSize}`,
                 token
             );
             console.log("rooms", response);

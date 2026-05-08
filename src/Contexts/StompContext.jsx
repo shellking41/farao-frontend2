@@ -37,7 +37,7 @@ export const StompContextProvider = ({ children }) => {
       clientRef.current = null;
     }
 
-    const socket = new SockJS(`https://farao-backend-fa2bcbbfec38.herokuapp.com/gs-guide-websocket?token=${token}`);
+    const socket = new SockJS(`https://api.szabolcsbabics.com/gs-guide-websocket?token=${token}`);
 
     const client = new Client({
       connectHeaders: {

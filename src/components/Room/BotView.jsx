@@ -23,7 +23,7 @@ function BotView({ bot, roomId, difficulties }) {
   }, [userCurrentStatus.currentRoom]);
 
   const removeBot = async (bot) => {
-    const response = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/bot/remove', {
+    const response = await post('https://api.szabolcsbabics.com/bot/remove', {
       botId: bot.botId,
       roomId,
     }, token);
@@ -37,14 +37,14 @@ function BotView({ bot, roomId, difficulties }) {
   const editBot = async (e, bot) => {
     let response;
     if (difficulties.includes(e.target.value)) {
-      response = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/bot/edit', {
+      response = await post('https://api.szabolcsbabics.com/bot/edit', {
         name: bot.name,
         difficulty: e.target.value,
         botId: bot.botId,
         roomId: parseInt(roomId),
       }, token);
     } else {
-      response = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/bot/edit', {
+      response = await post('https://api.szabolcsbabics.com/bot/edit', {
         name: e.target.value,
         difficulty: bot.difficulty,
         botId: bot.botId,

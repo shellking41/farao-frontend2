@@ -34,7 +34,7 @@ function Register() {
         header={{ text: 'Register', tag: 'h2' }}
         onSubmit={async (data) => {
 
-          const response = await post('https://farao-backend-fa2bcbbfec38.herokuapp.com/auth/register',
+          const response = await post('https://api.szabolcsbabics.com/auth/register',
             {
               username: data.Username,
               password: data.Password,

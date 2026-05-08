@@ -12,10 +12,10 @@ function Statistic() {
   const { token } = useContext(TokenContext);
   useEffect(() => {
     const f = async () => {
-      let response = await get('https://farao-backend-fa2bcbbfec38.herokuapp.com/statistics/user/me', token);
+      let response = await get('https://api.szabolcsbabics.com/statistics/user/me', token);
 
       setUserStatistics(response);
-      response = await get('https://farao-backend-fa2bcbbfec38.herokuapp.com/statistics/user/global-best', token);
+      response = await get('https://api.szabolcsbabics.com/statistics/user/global-best', token);
       setGlobalBest(response);
 
     };
